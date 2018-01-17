@@ -1,0 +1,8 @@
+ClickerEngine/bin/
+ClickerEngine/obj/
+ClickerGame/ClickerGame.Android/bin/
+ClickerGame/ClickerGame.Android/obj/
+ClickerGame/ClickerGame.iOS/obj/
+ClickerGame/ClickerGame.UWP/obj/
+ClickerGame/ClickerGame/bin/
+ClickerGame/ClickerGame/obj/
