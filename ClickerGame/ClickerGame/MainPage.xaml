@@ -12,11 +12,11 @@
         </StackLayout>
 
         <StackLayout VerticalOptions="CenterAndExpand">
-            <!-- middle controls -->
+            <Picker Title="Bonuses" VerticalOptions="Start" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Bonuses}" ItemDisplayBinding="{Binding Name}" />
         </StackLayout>
 
         <StackLayout Orientation="Horizontal" VerticalOptions="End">
-            <Button x:Name="MyButton" Text="Click Me!" HorizontalOptions="CenterAndExpand" WidthRequest="300" HeightRequest="150" Margin="0,50"/>
+            <Button x:Name="MyButton" Clicked="MyButton_Clicked" Text="Click Me!" HorizontalOptions="CenterAndExpand" WidthRequest="300" HeightRequest="150" Margin="0,50" />
         </StackLayout>
     </StackLayout>
 

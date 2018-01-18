@@ -6,3 +6,7 @@ ClickerGame/ClickerGame.iOS/obj/
 ClickerGame/ClickerGame.UWP/obj/
 ClickerGame/ClickerGame/bin/
 ClickerGame/ClickerGame/obj/
+ClickerGame.ViewModel/obj/
+ClickerGame.ViewModel/bin/
+ClickerEngine.Test/obj/
+ClickerEngine.Test/bin/

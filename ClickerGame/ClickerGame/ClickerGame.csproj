@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ClickerEngine\ClickerEngine.csproj" />
+    <ProjectReference Include="..\..\ClickerGame.ViewModel\ClickerGame.ViewModel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

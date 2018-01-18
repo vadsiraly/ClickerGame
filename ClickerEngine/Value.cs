@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClickerEngine.PowerNames;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -92,7 +93,7 @@ namespace ClickerEngine
             }
             else
             {
-                return $"{Gain} {Power.PowerName()}";
+                return $"{Gain} {PowerNamer.GetName(Power)}";
             }
         }
     }
