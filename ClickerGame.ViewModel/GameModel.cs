@@ -1,4 +1,5 @@
 ﻿using ClickerEngine;
+using ClickerEngine.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,8 +15,6 @@ namespace ClickerGame.ViewModel
 
         public List<Bonus> Bonuses { get; set; }
 
-        public List<string> BonusNames;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public GameModel()
@@ -24,8 +23,7 @@ namespace ClickerGame.ViewModel
             engine = new Engine();
             engine.CurrentValueChanged += CurrentValueChanged;
 
-            Bonuses = engine.Bonuses;
-            BonusNames = Bonuses.Select(x => x.Name).ToList();
+            Bonuses = Bonus.Bonuses();
         }
 
         private void CurrentValueChanged(object sender, Value currentValue)
@@ -39,6 +37,11 @@ namespace ClickerGame.ViewModel
             engine.Click();
         }
 
+        public void PurchaseBonus(Bonus pickedBonus)
+        {
+            engine.PurchaseBonus(pickedBonus);
+        }
+
         public string CurrentValue
         {
             get { return currentValue.ToString(); }
@@ -47,9 +50,7 @@ namespace ClickerGame.ViewModel
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

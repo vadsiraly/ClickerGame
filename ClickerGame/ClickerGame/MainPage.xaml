@@ -12,12 +12,15 @@
         </StackLayout>
 
         <StackLayout VerticalOptions="CenterAndExpand">
-            <Picker Title="Bonuses" VerticalOptions="Start" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Bonuses}" ItemDisplayBinding="{Binding Name}" />
+            <StackLayout Orientation="Horizontal">
+                <Picker x:Name="BonusPicker" Title="Bonuses" VerticalOptions="Start" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Bonuses}" ItemDisplayBinding="{Binding TempDisplayName}" />
+                <Button x:Name="PurchaseButton" Clicked="PurchaseButton_Clicked"></Button>
+            </StackLayout>
         </StackLayout>
 
         <StackLayout Orientation="Horizontal" VerticalOptions="End">
-            <Button x:Name="MyButton" Clicked="MyButton_Clicked" Text="Click Me!" HorizontalOptions="CenterAndExpand" WidthRequest="300" HeightRequest="150" Margin="0,50" />
+            <Button x:Name="ClickButton" Clicked="ClickButton_Clicked" Text="Click Me!" HorizontalOptions="CenterAndExpand" WidthRequest="300" HeightRequest="150" Margin="0,50" />
         </StackLayout>
     </StackLayout>
-
+    
 </ContentPage>

@@ -13,7 +13,7 @@ namespace ClickerGame
 		{
 			InitializeComponent();
 
-			MainPage = new ClickerGame.MainPage();
+			MainPage = new MainPage();
 		}
 
 		protected override void OnStart ()

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ClickerEngine
 {
-    public class Value
+    public class Value : IEquatable<Value>
     {
         public double Gain { get; set; }
         public int Power { get; set; }
@@ -21,36 +21,28 @@ namespace ClickerEngine
             var pow = v1.Power + v2.Power;
             var gain = v1.Gain * v2.Gain;
 
-            return new Value(gain, pow);
+            return new Value(gain, pow).Normalize();
         }
 
         public static Value operator +(Value v1, Value v2)
         {
-            if(v1.Gain + v2.Gain >= 10000)
-            {
-                throw new ArgumentException("The gain cannot be larger than 999.9999...");
-            }
+            v1.Normalize();
+            v2.Normalize();
 
             if (v1.Power == v2.Power)
             {
                 var pow = v1.Power;
                 var gain = v1.Gain + v2.Gain;
 
-                if (gain >= 1000)
-                {
-                    gain = gain / 1000;
-                    pow += 3;
-                }
-
-                return new Value(gain, pow);
+                return new Value(gain, pow).Normalize();
             }
             else if (v1.Power > (v2.Power + Settings.PowerDifferenceCeiling))
             {
-                return v1;
+                return v1.Normalize();
             }
             else if (v2.Power > (v1.Power + Settings.PowerDifferenceCeiling))
             {
-                return v2;
+                return v2.Normalize();
             }
             else
             {
@@ -59,26 +51,63 @@ namespace ClickerEngine
                     var pow = v1.Power - v2.Power;
                     var gain = v1.Gain + v2.Gain / Math.Pow(10,pow);
 
-                    if (gain >= 1000)
-                    {
-                        gain = gain / 1000;
-                        pow += 3;
-                    }
-
-                    return new Value(gain, v1.Power);
+                    return new Value(gain, v1.Power).Normalize();
                 }
                 else if (v2.Power > v1.Power)
                 {
                     var pow = v2.Power - v1.Power;
                     var gain = v2.Gain + v1.Gain / Math.Pow(10, pow);
 
-                    if (gain >= 1000)
-                    {
-                        gain = gain / 1000;
-                        pow+=3;
-                    }
+                    return new Value(gain, v2.Power).Normalize();
+                }
+            }
 
-                    return new Value(gain, v2.Power);
+            return null;
+        }
+
+        public Value Normalize()
+        {
+            var ret = new Value(Gain, Power);
+            while(ret.Gain <= -1000 || ret.Gain >= 1000)
+            {
+                ret.Gain = ret.Gain / 1000;
+                ret.Power += 3;
+            }
+            return ret;
+        }
+
+        public static Value operator -(Value v1, Value v2)
+        {
+            if (v1.Power == v2.Power)
+            {
+                var pow = v1.Power;
+                var gain = v1.Gain - v2.Gain;
+
+                return new Value(gain, pow).Normalize();
+            }
+            else if (v1.Power > (v2.Power + Settings.PowerDifferenceCeiling))
+            {
+                return v1.Normalize();
+            }
+            else if (v2.Power > (v1.Power + Settings.PowerDifferenceCeiling))
+            {
+                return v2.Normalize();
+            }
+            else
+            {
+                if (v1.Power > v2.Power)
+                {
+                    var pow = v1.Power - v2.Power;
+                    var gain = v1.Gain - v2.Gain / Math.Pow(10, pow);
+
+                    return new Value(gain, v1.Power).Normalize();
+                }
+                else if (v2.Power > v1.Power)
+                {
+                    var pow = v2.Power - v1.Power;
+                    var gain = v2.Gain - v1.Gain / Math.Pow(10, pow);
+
+                    return new Value(gain, v2.Power).Normalize();
                 }
             }
 
@@ -94,6 +123,71 @@ namespace ClickerEngine
             else
             {
                 return $"{Gain} {PowerNamer.GetName(Power)}";
+            }
+        }
+
+        public static bool operator ==(Value obj1, Value obj2)
+        {
+            if (ReferenceEquals(obj1, obj2))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(obj1, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(obj2, null))
+            {
+                return false;
+            }
+
+            return (obj1.Gain == obj2.Gain
+                    && obj1.Power == obj2.Power);
+        }
+
+        // this is second one '!='
+        public static bool operator !=(Value obj1, Value obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((Value)obj);
+        }
+
+        public bool Equals(Value other)
+        {
+            if(ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if(ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return Gain == other.Gain
+                && Power == other.Power;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Power.GetHashCode();
+                hashCode = (hashCode * 397) ^ Gain.GetHashCode();
+                return hashCode;
             }
         }
     }

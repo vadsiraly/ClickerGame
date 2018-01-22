@@ -11,20 +11,34 @@ namespace ClickerGame
 {
 	public partial class MainPage : ContentPage
     {
-        GameModel gameModel = new GameModel();
+        GameModel gameModel;
 
 		public MainPage()
 		{
 			InitializeComponent();
+
+            gameModel = new GameModel();          
             BindingContext = gameModel;
 
-            //Button btn = this.FindByName<Button>("MyButton");
-            //btn.Clicked += MyButton_Clicked;
+            Button btn = this.FindByName<Button>("ClickButton");
+            btn.Clicked += ClickButton_Clicked;
+
+            btn = this.FindByName<Button>("PurchaseButton");
+            btn.Clicked += PurchaseButton_Clicked;
         }
 
-        private void MyButton_Clicked(object sender, EventArgs e)
+        private void ClickButton_Clicked(object sender, EventArgs e)
         {
             gameModel.Click();
+        }
+
+        private void PurchaseButton_Clicked(object sender, EventArgs e)
+        {
+            var pickedBonus = this.FindByName<Picker>("BonusPicker").SelectedItem as Bonus;
+            if (pickedBonus != null)
+            {
+                gameModel.PurchaseBonus(pickedBonus);
+            }
         }
     }
 }

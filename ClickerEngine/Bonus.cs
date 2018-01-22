@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClickerEngine.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,14 +7,24 @@ namespace ClickerEngine
 {
     public class Bonus
     {
-        public Bonus(string name, double value)
+        public Bonus(string name, double value, Value price, BonusType type = BonusType.Additive)
         {
             Name = name;
             Value = value;
+            Price = price;
+            Type = type;
         }
 
         public double Value { get; set; }
         public string Name { get; set; }
+        public Value Price { get; set; }
+        public BonusType Type { get; set; }
+
+        public string TempDisplayName
+        {
+            get { return $"{Name} (+{Percent}%) for {Price}cc"; }
+            set { }
+        }
 
         public int Percent
         {
@@ -23,16 +34,25 @@ namespace ClickerEngine
             }
         }
 
+        public static List<Bonus> Bonuses()
+        {
+            var allBonuses = new List<Bonus>();
+            allBonuses.AddRange(AdditiveBonuses());
+            allBonuses.AddRange(MultiplicativeBonuses());
+
+            return allBonuses;
+        }
+
         public static List<Bonus> AdditiveBonuses()
         {
             var abonuses = new List<Bonus>();
 
-            abonuses.Add(new Bonus("Flickeree", 1.5));
-            abonuses.Add(new Bonus("Cackaroo", 2));
-            abonuses.Add(new Bonus("Lollipop", 3));
-            abonuses.Add(new Bonus("ZuckerMacher", 1.5));
-            abonuses.Add(new Bonus("Kuckerlay", 2.5));
-            abonuses.Add(new Bonus("Nompadomp", 6.5));
+            abonuses.Add(new Bonus("Flickeree", 1.5, new Value(100, 1)));
+            abonuses.Add(new Bonus("Cackaroo", 2, new Value(100, 1)));
+            abonuses.Add(new Bonus("Lollipop", 3, new Value(100, 1)));
+            abonuses.Add(new Bonus("ZuckerMacher", 1.5, new Value(100, 1)));
+            abonuses.Add(new Bonus("Kuckerlay", 2.5, new Value(100, 1)));
+            abonuses.Add(new Bonus("Nompadomp", 6.5, new Value(100, 1)));
 
             return abonuses;
         }
@@ -41,12 +61,12 @@ namespace ClickerEngine
         {
             var mbonuses = new List<Bonus>();
 
-            mbonuses.Add(new Bonus("Tosztojka", 1.5));
-            mbonuses.Add(new Bonus("Nyompelé", 2));
-            mbonuses.Add(new Bonus("Kurdagung", 3));
-            mbonuses.Add(new Bonus("Hammpendoszt", 1.5));
-            mbonuses.Add(new Bonus("Trompedúr", 2.5));
-            mbonuses.Add(new Bonus("Asztakomp", 6.5));
+            mbonuses.Add(new Bonus("Tosztojka", 1.5, new Value(100, 1), BonusType.Multiplicative));
+            mbonuses.Add(new Bonus("Nyompelé", 2, new Value(100, 1), BonusType.Multiplicative));
+            mbonuses.Add(new Bonus("Kurdagung", 3, new Value(100, 1), BonusType.Multiplicative));
+            mbonuses.Add(new Bonus("Hammpendoszt", 1.5, new Value(100, 1), BonusType.Multiplicative));
+            mbonuses.Add(new Bonus("Trompedúr", 2.5, new Value(100, 1), BonusType.Multiplicative));
+            mbonuses.Add(new Bonus("Asztakomp", 6.5, new Value(100, 1), BonusType.Multiplicative));
 
             return mbonuses;
         }

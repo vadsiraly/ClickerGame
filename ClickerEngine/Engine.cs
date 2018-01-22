@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClickerEngine.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -26,43 +27,69 @@ namespace ClickerEngine
         }
 
         public Value CurrentValue { get { return _currentValue; } set { _currentValue = value; OnCurrentValueChanged(_currentValue); } }
-        public List<Bonus> Bonuses
+
+        public List<Bonus> PurchasedBonuses
         {
             get
             {
-                return Bonus.AdditiveBonuses().Concat(Bonus.MultiplicativeBonuses()).ToList();
+                return _purchasedAdditiveBonuses.Concat(_purchasedMultiplicativeBonuses).ToList();
             }
         }
-        public List<Bonus> AdditiveBonuses {
-            get
-            {
-                return Bonus.AdditiveBonuses();
-            }
-        }
-        public List<Bonus> MultiplicativeBonuses
+        public List<Bonus> PurchasedAdditiveBonuses
         {
             get
             {
-                return Bonus.MultiplicativeBonuses();
+                return _purchasedAdditiveBonuses;
+            }
+        }
+        public List<Bonus> PurchasedMultiplicativeBonuses
+        {
+            get
+            {
+                return _purchasedMultiplicativeBonuses;
             }
         }
 
+        public Value ValuePerSecond { get; private set; }
+        public Value ValuePerClick { get; private set; }
+
         private DateTime LastExecution { get; set; }
-        private Value ValuePerSecond { get; set; }
-        private Value ValuePerClick { get; set; }
         private Timer Timer { get; set; }
 
         private void Update(object state)
         {
-            CurrentValue += new Value(ValuePerSecond.Gain
-                * (_purchasedAdditiveBonuses.Any() ? _purchasedAdditiveBonuses.Select(x => x.Value).Aggregate((cur, next) => cur + next) : 1)
-                * (_purchasedMultiplicativeBonuses.Any() ? _purchasedMultiplicativeBonuses.Select(x => x.Value).Aggregate((cur, next) => cur * next) : 1)
-                , ValuePerSecond.Power);
+            CurrentValue += ValuePerSecond;
         }
 
         public void Click()
         {
             CurrentValue += ValuePerClick;
+            ValuePerClick.Power += 2;
+        }
+
+        public void PurchaseBonus(Bonus pickedBonus)
+        {
+            if ((CurrentValue - pickedBonus.Price).Gain >= 0)
+            {
+                CurrentValue -= pickedBonus.Price;
+                switch(pickedBonus.Type)
+                {
+                    case BonusType.Additive:
+                        _purchasedAdditiveBonuses.Add(pickedBonus);
+                        break;
+                    case BonusType.Multiplicative:
+                        _purchasedMultiplicativeBonuses.Add(pickedBonus);
+                        break;
+                }
+
+                var additiveBonusValues = (_purchasedAdditiveBonuses.Any() ? _purchasedAdditiveBonuses.Select(x => x.Value).Aggregate((cur, next) => cur + next) : 1);
+                var multilpicativeBonusValues = (_purchasedMultiplicativeBonuses.Any() ? _purchasedMultiplicativeBonuses.Select(x => x.Value).Aggregate((cur, next) => cur * next) : 1);
+
+                var gain = ValuePerSecond.Gain * additiveBonusValues * multilpicativeBonusValues;
+                var power = ValuePerSecond.Power;
+
+                ValuePerSecond = new Value(gain, power).Normalize();
+            }
         }
 
         protected void OnCurrentValueChanged(Value currentValue)
