@@ -80,7 +80,7 @@ namespace ClickerEngine
                 ret.Power += 3;
             }
 
-            while(ret.Gain < 1 || ret.Gain > -1)
+            while(ret.Gain < 1 && ret.Gain > -1)
             {
                 ret.Gain = ret.Gain * 10;
                 ret.Power--;
@@ -119,7 +119,7 @@ namespace ClickerEngine
                 else if (v2.Power > v1.Power)
                 {
                     var difference = v2.Power - v1.Power;
-                    var gain = (v2.Gain * Math.Pow(10, difference) - v1.Gain) / Math.Pow(10, difference);
+                    var gain = (v1.Gain - v2.Gain * Math.Pow(10, difference)) / Math.Pow(10, difference);
 
                     return new Value(gain, v2.Power).Normalize();
                 }
