@@ -22,7 +22,7 @@ namespace ClickerEngine
 
         public string TempDisplayName
         {
-            get { return $"{Name} (+{Percent}%) for {Price}cc"; }
+            get { return $"{Name} ({Value}x multiplier {(Type == BonusType.Additive ? "(A)" : "(M)")}) for {Price}cc"; }
             set { }
         }
 

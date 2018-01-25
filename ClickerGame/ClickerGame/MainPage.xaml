@@ -14,7 +14,7 @@
         <StackLayout VerticalOptions="CenterAndExpand">
             <StackLayout Orientation="Horizontal">
                 <Picker x:Name="BonusPicker" Title="Bonuses" VerticalOptions="Start" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Bonuses}" ItemDisplayBinding="{Binding TempDisplayName}" />
-                <Button x:Name="PurchaseButton" Clicked="PurchaseButton_Clicked"></Button>
+                <Button x:Name="PurchaseButton" Text="Buy" Clicked="PurchaseButton_Clicked"></Button>
             </StackLayout>
         </StackLayout>
 

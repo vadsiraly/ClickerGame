@@ -18,8 +18,8 @@ namespace ClickerEngine
         {
             _currentValue = new Value(0, 0);
             LastExecution = DateTime.Now;
-            ValuePerSecond = new Value(100, 0);
-            ValuePerClick = new Value(100.123456789, 0);
+            ValuePerSecond = new Value(0, 0);
+            ValuePerClick = new Value(1, 0);
             Timer = new Timer(Update, null, 0, 1000);
 
             _purchasedAdditiveBonuses = new List<Bonus>();
@@ -64,11 +64,15 @@ namespace ClickerEngine
         public void Click()
         {
             CurrentValue += ValuePerClick;
-            ValuePerClick.Power += 2;
         }
 
         public void PurchaseBonus(Bonus pickedBonus)
         {
+            if(ValuePerSecond == new Value(0, 0))
+            {
+                ValuePerSecond = new Value(1, 0);
+            }
+
             if ((CurrentValue - pickedBonus.Price).Gain >= 0)
             {
                 CurrentValue -= pickedBonus.Price;

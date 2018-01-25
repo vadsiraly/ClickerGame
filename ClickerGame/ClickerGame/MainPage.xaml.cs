@@ -19,12 +19,6 @@ namespace ClickerGame
 
             gameModel = new GameModel();          
             BindingContext = gameModel;
-
-            Button btn = this.FindByName<Button>("ClickButton");
-            btn.Clicked += ClickButton_Clicked;
-
-            btn = this.FindByName<Button>("PurchaseButton");
-            btn.Clicked += PurchaseButton_Clicked;
         }
 
         private void ClickButton_Clicked(object sender, EventArgs e)

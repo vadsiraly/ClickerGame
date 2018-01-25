@@ -16,10 +16,12 @@ namespace ClickerEngine.Test
             var engine = new Engine();
 
             var oldVPS = engine.ValuePerSecond;
+            if (oldVPS == new Value(0, 0))
+            {
+                oldVPS = new Value(1, 0);
+            }
 
             engine.PurchaseBonus(new Bonus("SomeBonus", 6, new Value(0, 0), BonusType.Additive));
-
-            Thread.Sleep(10000);
 
             var newVPS = engine.ValuePerSecond;
 

@@ -68,11 +68,24 @@ namespace ClickerEngine
         public Value Normalize()
         {
             var ret = new Value(Gain, Power);
-            while(ret.Gain <= -1000 || ret.Gain >= 1000)
+            if (ret.Gain == 0)
+            {
+                ret.Power = 0;
+                return ret;
+            }
+
+            while (ret.Gain <= -1000 || ret.Gain >= 1000)
             {
                 ret.Gain = ret.Gain / 1000;
                 ret.Power += 3;
             }
+
+            while(ret.Gain < 1 || ret.Gain > -1)
+            {
+                ret.Gain = ret.Gain * 10;
+                ret.Power--;
+            }
+
             return ret;
         }
 
@@ -91,21 +104,22 @@ namespace ClickerEngine
             }
             else if (v2.Power > (v1.Power + Settings.PowerDifferenceCeiling))
             {
-                return v2.Normalize();
+                return new Value((-1) * v2.Gain, v2.Power).Normalize();
             }
             else
             {
                 if (v1.Power > v2.Power)
                 {
-                    var pow = v1.Power - v2.Power;
-                    var gain = v1.Gain - v2.Gain / Math.Pow(10, pow);
+                    var difference = v1.Power - v2.Power;
+
+                    var gain = (v1.Gain * Math.Pow(10, difference) - v2.Gain) / Math.Pow(10, difference);
 
                     return new Value(gain, v1.Power).Normalize();
                 }
                 else if (v2.Power > v1.Power)
                 {
-                    var pow = v2.Power - v1.Power;
-                    var gain = v2.Gain - v1.Gain / Math.Pow(10, pow);
+                    var difference = v2.Power - v1.Power;
+                    var gain = (v2.Gain * Math.Pow(10, difference) - v1.Gain) / Math.Pow(10, difference);
 
                     return new Value(gain, v2.Power).Normalize();
                 }
