@@ -19,6 +19,10 @@ namespace ClickerGame
 
             gameModel = new GameModel();          
             BindingContext = gameModel;
+
+            var settingsButton = this.FindByName<Image>("SettingsButton");
+            var tapGestureRecognizer = new TapGestureRecognizer();
+            tapGestureRecognizer.Tapped += (s, e) => {  };
         }
 
         private void ClickButton_Clicked(object sender, EventArgs e)

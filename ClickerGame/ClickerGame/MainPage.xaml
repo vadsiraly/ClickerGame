@@ -5,10 +5,19 @@
              x:Class="ClickerGame.MainPage">
 
     <StackLayout>
-        <StackLayout Orientation="Horizontal" VerticalOptions="Start">
-            <Label x:Name="MyLabel" Text="{Binding CurrentValue}" 
-                   VerticalOptions="Center" 
-                   HorizontalOptions="Center" />
+        <StackLayout Orientation="Horizontal" VerticalOptions="Start" HeightRequest="80">
+            <Image x:Name="SettingsButton" Source="icon_settings.png"></Image>
+            <StackLayout HorizontalOptions="CenterAndExpand">
+                <Label x:Name="CurrentValueGain" Text="{Binding CurrentValue}"
+                    FontSize="Large"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Label x:Name="CurrentValuePower" Text="{Binding CurrentPower}"
+                    FontSize="Small"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+            </StackLayout>
+            <Image x:Name="AchievementsButton" Source="icon_achievements.png"></Image>
         </StackLayout>
 
         <StackLayout VerticalOptions="CenterAndExpand">

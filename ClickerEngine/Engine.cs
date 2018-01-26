@@ -68,13 +68,13 @@ namespace ClickerEngine
 
         public void PurchaseBonus(Bonus pickedBonus)
         {
-            if(ValuePerSecond == new Value(0, 0))
-            {
-                ValuePerSecond = new Value(1, 0);
-            }
-
             if ((CurrentValue - pickedBonus.Price).Gain >= 0)
             {
+                if (ValuePerSecond == new Value(0, 0))
+                {
+                    ValuePerSecond = new Value(1, 0);
+                }
+
                 CurrentValue -= pickedBonus.Price;
                 switch(pickedBonus.Type)
                 {

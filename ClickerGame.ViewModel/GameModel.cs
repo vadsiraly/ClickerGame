@@ -1,5 +1,6 @@
 ﻿using ClickerEngine;
 using ClickerEngine.Enumerations;
+using ClickerEngine.PowerNames;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,6 +31,7 @@ namespace ClickerGame.ViewModel
         {
             this.currentValue = currentValue;
             OnPropertyChanged("CurrentValue");
+            OnPropertyChanged("CurrentPower");
         }
 
         public void Click()
@@ -44,7 +46,13 @@ namespace ClickerGame.ViewModel
 
         public string CurrentValue
         {
-            get { return currentValue.ToString(); }
+            get { return currentValue.Gain.ToString(); }
+            private set { }
+        }
+
+        public string CurrentPower
+        {
+            get { return PowerNamer.GetName(currentValue.Power); }
             private set { }
         }
 
