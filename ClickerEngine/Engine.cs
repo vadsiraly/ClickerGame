@@ -12,6 +12,8 @@ namespace ClickerEngine
         private List<Bonus> _purchasedAdditiveBonuses;
         private List<Bonus> _purchasedMultiplicativeBonuses;
 
+        private List<Generator> _purchasedGenerators;
+
         public event EventHandler<Value> CurrentValueChanged;
 
         public Engine()
@@ -27,6 +29,14 @@ namespace ClickerEngine
         }
 
         public Value CurrentValue { get { return _currentValue; } set { _currentValue = value; OnCurrentValueChanged(_currentValue); } }
+
+        public List<Generator> PurchasedGenerators
+        {
+            get
+            {
+                return _purchasedGenerators;
+            }
+        }
 
         public List<Bonus> PurchasedBonuses
         {

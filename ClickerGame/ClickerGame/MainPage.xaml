@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ClickerGame"
-             x:Class="ClickerGame.MainPage">
+             x:Class="ClickerGame.MainPage"
+             NavigationPage.HasNavigationBar="false">
 
     <StackLayout>
         <StackLayout Orientation="Horizontal" VerticalOptions="Start" HeightRequest="80">
@@ -28,43 +29,23 @@
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <StackLayout Orientation="Vertical">
                     <Label Text="1" HorizontalOptions="Center"></Label>
-                    <Switch HorizontalOptions="Center"></Switch>
+                    <Switch x:Name="Switch_1" HorizontalOptions="Center" Toggled="Scale_Toggled"></Switch>
                 </StackLayout>
                 <StackLayout Orientation="Vertical">
                     <Label Text="10" HorizontalOptions="Center"></Label>
-                    <Switch HorizontalOptions="Center"></Switch>
+                    <Switch x:Name="Switch_10" HorizontalOptions="Center" Toggled="Scale_Toggled"></Switch>
                 </StackLayout>
                 <StackLayout Orientation="Vertical">
                     <Label Text="100" HorizontalOptions="Center"></Label>
-                    <Switch HorizontalOptions="Center"></Switch>
+                    <Switch x:Name="Switch_100" HorizontalOptions="Center" Toggled="Scale_Toggled"></Switch>
                 </StackLayout>
                 <StackLayout Orientation="Vertical">
                     <Label Text="Max" HorizontalOptions="Center"></Label>
-                    <Switch HorizontalOptions="Center"></Switch>
+                    <Switch x:Name="Switch_Max" HorizontalOptions="Center" Toggled="Scale_Toggled"></Switch>
                 </StackLayout>
             </StackLayout>
-            <!--<ListView  x:Name="GeneratorListView" ItemsSource="{Binding Generators}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout BackgroundColor="#eee"
-                        Orientation="Vertical">
-                                <StackLayout Orientation="Horizontal">
-                                    <Image Source="{Binding image}" />
-                                    <Label Text="{Binding Name}"
-                                TextColor="#f35e20" />
-                                    <Label Text="{Binding Description}"
-                                HorizontalOptions="EndAndExpand"
-                                TextColor="#503026" />
-                                </StackLayout>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
             <ListView 
-                  ItemsSource="{Binding Departments}" CachingStrategy="RecycleElement" RowHeight="80">
-
+                  ItemsSource="{Binding Generators}" CachingStrategy="RecycleElement" RowHeight="80">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

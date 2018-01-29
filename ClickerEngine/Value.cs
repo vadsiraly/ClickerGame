@@ -10,10 +10,12 @@ namespace ClickerEngine
         public double Gain { get; set; }
         public int Power { get; set; }
 
-        public Value(double gain, int power)
+        public Value(double gain, int power = 0)
         {
             Gain = Math.Round(gain, Settings.FractionPrecision);
             Power = power;
+
+            Normalize();
         }
 
         public static Value operator *(Value v1, Value v2)
@@ -67,26 +69,25 @@ namespace ClickerEngine
 
         public Value Normalize()
         {
-            var ret = new Value(Gain, Power);
-            if (ret.Gain == 0)
+            if (Gain == 0)
             {
-                ret.Power = 0;
-                return ret;
+                Power = 0;
+                return this;
             }
 
-            while (ret.Gain <= -1000 || ret.Gain >= 1000)
+            while (Gain <= -1000 || Gain >= 1000)
             {
-                ret.Gain = ret.Gain / 1000;
-                ret.Power += 3;
+                Gain = Gain / 1000;
+                Power += 3;
             }
 
-            while(ret.Gain < 1 && ret.Gain > -1)
+            while(Gain < 1 && Gain > -1)
             {
-                ret.Gain = ret.Gain * 10;
-                ret.Power--;
+                Gain = Gain * 10;
+                Power--;
             }
 
-            return ret;
+            return this;
         }
 
         public static Value operator -(Value v1, Value v2)

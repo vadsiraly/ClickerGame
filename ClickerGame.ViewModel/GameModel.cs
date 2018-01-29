@@ -15,6 +15,7 @@ namespace ClickerGame.ViewModel
         private Value currentValue;
 
         public List<Bonus> Bonuses { get; set; }
+        public List<Generator> Generators { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,6 +26,7 @@ namespace ClickerGame.ViewModel
             engine.CurrentValueChanged += CurrentValueChanged;
 
             Bonuses = Bonus.Bonuses();
+            Generators = Generator.Generators();
         }
 
         private void CurrentValueChanged(object sender, Value currentValue)

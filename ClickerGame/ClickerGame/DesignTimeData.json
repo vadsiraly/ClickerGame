@@ -2,7 +2,7 @@
   "MainPage.xaml": {
     "CurrentValue": "759",
     "CurrentPower": "Quattuorquinquagintillion",
-    "Departments*": [
+    "Generators*": [
       {
         "Name": "Hyper turbulator",
         "Description": "This appliance helps in improving the turbulation.",

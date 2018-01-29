@@ -21,8 +21,36 @@ namespace ClickerGame
             BindingContext = gameModel;
 
             var settingsButton = this.FindByName<Image>("SettingsButton");
-            var tapGestureRecognizer = new TapGestureRecognizer();
-            tapGestureRecognizer.Tapped += (s, e) => {  };
+            var settingsClickRecognizer = new TapGestureRecognizer();
+            settingsClickRecognizer.Tapped += async delegate {
+                await Navigation.PushAsync(new SettingsPage());
+            };
+            settingsButton.GestureRecognizers.Add(settingsClickRecognizer);
+
+            var achievementsButton = this.FindByName<Image>("AchievementsButton");
+            var achievementsClickRecognizer = new TapGestureRecognizer();
+            achievementsClickRecognizer.Tapped += async delegate {
+                await Navigation.PushAsync(new AchievementsPage());
+            };
+            achievementsButton.GestureRecognizers.Add(achievementsClickRecognizer);
+        }
+
+        private void Scale_Toggled(object sender, EventArgs e)
+        {
+            var switches = new List<Switch>();
+            switches.Add(this.FindByName<Switch>("Switch_1"));
+            switches.Add(this.FindByName<Switch>("Switch_10"));
+            switches.Add(this.FindByName<Switch>("Switch_100"));
+            switches.Add(this.FindByName<Switch>("Switch_Max"));
+
+            var toggledSwitch = sender as Switch;
+            if (toggledSwitch == null) return;
+
+            if(toggledSwitch.IsToggled)
+            foreach (var sw in switches.Where(s => s != toggledSwitch))
+            {
+                sw.IsToggled = false;
+            }
         }
 
         private void ClickButton_Clicked(object sender, EventArgs e)
