@@ -26,6 +26,7 @@ namespace ClickerEngine
 
             _purchasedAdditiveBonuses = new List<Bonus>();
             _purchasedMultiplicativeBonuses = new List<Bonus>();
+            _purchasedGenerators = new List<Generator>();
         }
 
         public Value CurrentValue { get { return _currentValue; } set { _currentValue = value; OnCurrentValueChanged(_currentValue); } }

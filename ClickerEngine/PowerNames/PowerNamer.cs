@@ -14,8 +14,7 @@ namespace ClickerEngine.PowerNames
         {
             string file;
             var assembly = Assembly.GetExecutingAssembly();
-            var asd = assembly.GetManifestResourceNames();
-            using (var stream = assembly.GetManifestResourceStream("ClickerEngine.PowerNames.power_names.txt"))
+            using (var stream = assembly.GetManifestResourceStream("ClickerEngine.Resources.power_names.txt"))
             {
                 using (var reader = new StreamReader(stream, Encoding.UTF8))
                 {

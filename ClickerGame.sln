@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickerGame.Android", "ClickerGame\ClickerGame.Android\ClickerGame.Android.csproj", "{37A59FE5-903C-4306-A528-ABAD4C8164A6}"
 EndProject
@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClickerGame", "ClickerGame\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClickerEngine", "ClickerEngine\ClickerEngine.csproj", "{7A0045D4-2CCE-422B-B2E6-45B528EAF443}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickerEngine.Test", "ClickerEngine.Test\ClickerEngine.Test.csproj", "{3FDC7213-4463-45A8-A682-48260F4D8495}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClickerEngine.Test", "ClickerEngine.Test\ClickerEngine.Test.csproj", "{3FDC7213-4463-45A8-A682-48260F4D8495}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickerGame.ViewModel", "ClickerGame.ViewModel\ClickerGame.ViewModel.csproj", "{2C476FA5-66FF-4A5C-B43E-049032C86F1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClickerGame.ViewModel", "ClickerGame.ViewModel\ClickerGame.ViewModel.csproj", "{2C476FA5-66FF-4A5C-B43E-049032C86F1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

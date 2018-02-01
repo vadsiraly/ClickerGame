@@ -9,24 +9,22 @@ using System.Runtime.CompilerServices;
 
 namespace ClickerGame.ViewModel
 {
-    public class GameModel : INotifyPropertyChanged
+    public class MainPageViewModel : INotifyPropertyChanged
     {
         private Engine engine;
         private Value currentValue;
 
         public List<Bonus> Bonuses { get; set; }
-        public List<Generator> Generators { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public GameModel()
+        public MainPageViewModel(Engine engine)
         {
             currentValue = new Value(0, 0);
-            engine = new Engine();
+            this.engine = engine;
             engine.CurrentValueChanged += CurrentValueChanged;
 
             Bonuses = Bonus.Bonuses();
-            Generators = Generator.Generators();
         }
 
         private void CurrentValueChanged(object sender, Value currentValue)

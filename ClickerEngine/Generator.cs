@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace ClickerEngine
@@ -40,8 +43,25 @@ namespace ClickerEngine
         {
             var ret = new List<Generator>();
 
-            foreach(var i in Enumerable.Range(0,50))
-                ret.Add(new Generator("Hyper turbulator", "This appliance helps in improving the turbulation.", "icon_settings.png", new Value(100)));
+            var json = string.Empty;
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream("ClickerEngine.Resources.generators.json"))
+            {
+                using (var reader = new StreamReader(stream, Encoding.UTF8))
+                {
+                    json = reader.ReadToEnd();
+                }
+            }
+
+            dynamic generators = JsonConvert.DeserializeObject(json);
+            foreach(var generator in generators)
+            {
+                string name = generator.Name;
+                string desc = generator.Description;
+                string thumbnail = generator.Thumbnail;
+
+                ret.Add(new Generator(name, desc, thumbnail, new Value(100)));
+            }
 
             return ret;
         }

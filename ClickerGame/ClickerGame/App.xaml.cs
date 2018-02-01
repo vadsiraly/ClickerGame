@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClickerEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,13 @@ namespace ClickerGame
 {
 	public partial class App : Application
 	{
+        private Engine engine;
 		public App ()
 		{
 			InitializeComponent();
+            engine = new Engine();
 
-			MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new MainPage(engine));
 		}
 
 		protected override void OnStart ()

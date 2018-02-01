@@ -11,51 +11,35 @@ namespace ClickerGame
 {
 	public partial class MainPage : ContentPage
     {
-        GameModel gameModel;
+        private Engine engine;
+        private MainPageViewModel _viewModel;
 
-		public MainPage()
+		public MainPage(Engine engine)
 		{
 			InitializeComponent();
+            this.engine = engine;
 
-            gameModel = new GameModel();          
-            BindingContext = gameModel;
+            _viewModel = new MainPageViewModel(engine);
+            BindingContext = _viewModel;
 
             var settingsButton = this.FindByName<Image>("SettingsButton");
             var settingsClickRecognizer = new TapGestureRecognizer();
             settingsClickRecognizer.Tapped += async delegate {
-                await Navigation.PushAsync(new SettingsPage());
+                await Navigation.PushAsync(new SettingsPage(engine));
             };
             settingsButton.GestureRecognizers.Add(settingsClickRecognizer);
 
             var achievementsButton = this.FindByName<Image>("AchievementsButton");
             var achievementsClickRecognizer = new TapGestureRecognizer();
             achievementsClickRecognizer.Tapped += async delegate {
-                await Navigation.PushAsync(new AchievementsPage());
+                await Navigation.PushAsync(new AchievementsPage(engine));
             };
             achievementsButton.GestureRecognizers.Add(achievementsClickRecognizer);
         }
 
-        private void Scale_Toggled(object sender, EventArgs e)
+        private void ClickField_Clicked(object sender, EventArgs e)
         {
-            var switches = new List<Switch>();
-            switches.Add(this.FindByName<Switch>("Switch_1"));
-            switches.Add(this.FindByName<Switch>("Switch_10"));
-            switches.Add(this.FindByName<Switch>("Switch_100"));
-            switches.Add(this.FindByName<Switch>("Switch_Max"));
-
-            var toggledSwitch = sender as Switch;
-            if (toggledSwitch == null) return;
-
-            if(toggledSwitch.IsToggled)
-            foreach (var sw in switches.Where(s => s != toggledSwitch))
-            {
-                sw.IsToggled = false;
-            }
-        }
-
-        private void ClickButton_Clicked(object sender, EventArgs e)
-        {
-            gameModel.Click();
+            _viewModel.Click();
         }
 
         private void PurchaseButton_Clicked(object sender, EventArgs e)
@@ -63,8 +47,13 @@ namespace ClickerGame
             var pickedBonus = this.FindByName<Picker>("BonusPicker").SelectedItem as Bonus;
             if (pickedBonus != null)
             {
-                gameModel.PurchaseBonus(pickedBonus);
+                _viewModel.PurchaseBonus(pickedBonus);
             }
+        }
+
+        private async void GeneratorsButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new GeneratorsPage(engine));
         }
     }
 }

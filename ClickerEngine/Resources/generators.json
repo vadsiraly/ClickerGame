@@ -1,0 +1,62 @@
+﻿[
+    {
+      "Name": "Hyper turbulator",
+      "Description": "This appliance helps in improving the turbulation.",
+      "AvailableAmount": "436",
+      "Thumbnail": "icon_settings.png"
+    },
+    {
+      "Name": "Oscillating haler",
+      "Description": "There is just one thing you can do when this thing oscillates: Run.",
+      "AvailableAmount": "46",
+      "Thumbnail": "icon_settings.png"
+    },
+    {
+      "Name": "Beholden accelerator",
+      "Description": "It's steadily accelerating.",
+      "AvailableAmount": "326",
+      "Thumbnail": "icon_settings.png"
+    },
+    {
+      "Name": "Alive planet",
+      "Description": "On quiet night one can hear its heart beat.",
+      "AvailableAmount": "46",
+      "Thumbnail": "icon_settings.png"
+    },
+    {
+      "Name": "Just a miner",
+      "Description": "He does what he does best: mine.",
+      "AvailableAmount": "96",
+      "Thumbnail": "icon_settings.png"
+    },
+    {
+      "Name": "Trash regurgitator",
+      "Description": "Most likely the most disgusting thing ever existed.",
+      "AvailableAmount": "5638",
+      "Thumbnail": "icon_settings.png"
+    },
+    {
+      "Name": "Experienced gurgon",
+      "Description": "His CV is huge.",
+      "AvailableAmount": "6358",
+      "Thumbnail": "icon_settings.png"
+    },
+    {
+      "Name": "Impaled medusa",
+      "Description": "There's not a lot of thing it can do.",
+      "AvailableAmount": "246",
+      "Thumbnail": "icon_settings.png"
+    },
+    {
+      "Name": "A whole food market",
+      "Description": "Hungry? Get in!",
+      "AvailableAmount": "85",
+      "Thumbnail": "icon_settings.png"
+    },
+    {
+      "Name": "Noob Tracer",
+      "Description": "Not even a proper Pulse? Duh.",
+      "AvailableAmount": "97",
+      "Thumbnail": "icon_settings.png"
+    }
+]

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClickerGame.GeneratorsPage"
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="1" HorizontalOptions="Center"></Label>
+                    <Switch x:Name="Switch_1" HorizontalOptions="Center" Toggled="Scale_Toggled"></Switch>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="10" HorizontalOptions="Center"></Label>
+                    <Switch x:Name="Switch_10" HorizontalOptions="Center" Toggled="Scale_Toggled"></Switch>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="100" HorizontalOptions="Center"></Label>
+                    <Switch x:Name="Switch_100" HorizontalOptions="Center" Toggled="Scale_Toggled"></Switch>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Max" HorizontalOptions="Center"></Label>
+                    <Switch x:Name="Switch_Max" HorizontalOptions="Center" Toggled="Scale_Toggled"></Switch>
+                </StackLayout>
+            </StackLayout>
+            <ListView 
+                  ItemsSource="{Binding Generators}" CachingStrategy="RecycleElement" RowHeight="80">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ContentView>
+                                <StackLayout Orientation="Horizontal" Padding="5,2.5,0,2.5">
+                                    <Image Source="{Binding Thumbnail}" HeightRequest="75" WidthRequest="75" Aspect="AspectFit"/>
+                                    <StackLayout Orientation="Vertical" 
+                                           HorizontalOptions="FillAndExpand" Spacing="0">
+                                        <Label Text="{Binding Name}" 
+                                               FontSize="Medium"
+                                               FontAttributes="Bold" />
+                                        <Label Text="{Binding Description}" 
+                                               FontSize="Micro"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Available:" 
+                                               FontSize="Medium" />
+                                            <Label Text="{Binding AvailableAmount}" 
+                                               FontSize="Medium"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <Button Text="Buy" HorizontalOptions="End" VerticalOptions="Center"></Button>
+                                </StackLayout>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

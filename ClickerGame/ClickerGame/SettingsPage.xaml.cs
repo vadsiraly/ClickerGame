@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClickerEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace ClickerGame
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SettingsPage : ContentPage
 	{
-		public SettingsPage ()
+		public SettingsPage (Engine engine)
 		{
 			InitializeComponent ();
 		}

@@ -1,7 +1,9 @@
 {
   "MainPage.xaml": {
     "CurrentValue": "759",
-    "CurrentPower": "Quattuorquinquagintillion",
+    "CurrentPower": "Quattuorquinquagintillion"
+  },
+  "GeneratorsPage.xaml": {
     "Generators*": [
       {
         "Name": "Hyper turbulator",
@@ -65,4 +67,5 @@
       }
     ]
   }
+
 }
