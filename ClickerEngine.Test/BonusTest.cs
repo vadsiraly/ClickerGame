@@ -6,6 +6,7 @@ namespace ClickerEngine.Test
     [TestFixture]
     public class BonusTest
     {
+        [Ignore("Obsolete")]
         [Test]
         public void BonusAddsCorrectValue()
         {

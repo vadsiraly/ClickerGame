@@ -54,6 +54,8 @@
                                                FontSize="Small" />
                                             <Label Text="{Binding PurchasedAmount}" 
                                                FontSize="Small"/>
+                                            <Label Text="{Binding SumVps, StringFormat='({0})'}" 
+                                               FontSize="Small"/>
                                         </StackLayout>
                                     </StackLayout>
                                     <Button Text="Buy" HorizontalOptions="End" VerticalOptions="Center" Command="{Binding Source={x:Reference GeneratorsPage}, Path=BindingContext.PurchaseGeneratorCommand}" CommandParameter="{Binding .}"></Button>

@@ -12,5 +12,6 @@ namespace ClickerEngine.Generators
 
         void PurchaseGenerator(Generator generator);
         void PurchaseGenerators(ObservableCollectionEx<Generator> generators);
+        void Update(Value currentValue);
     }
 }

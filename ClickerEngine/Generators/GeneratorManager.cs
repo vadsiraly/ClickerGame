@@ -50,8 +50,15 @@ namespace ClickerEngine.Generators
 
         public void PurchaseGenerator(Generator generator)
         {
-            generator.PurchasedAmount++;
-            PurchasedGenerators.Add(generator);
+            if (PurchasedGenerators.Any(x => x == generator))
+            {
+                generator.PurchasedAmount++;
+            }
+            else
+            {
+                generator.PurchasedAmount = 1;
+                PurchasedGenerators.Add(generator);
+            }
         }
 
         public void PurchaseGenerators(ObservableCollectionEx<Generator> generators)
@@ -59,6 +66,14 @@ namespace ClickerEngine.Generators
             foreach(var gen in generators)
             {
                 PurchaseGenerator(gen);
+            }
+        }
+
+        public void Update(Value currentValue)
+        {
+            foreach(var gen in Generators)
+            {
+                gen.Update(currentValue);
             }
         }
     }

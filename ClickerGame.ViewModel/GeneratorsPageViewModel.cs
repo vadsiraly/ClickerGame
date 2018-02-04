@@ -32,8 +32,7 @@ namespace ClickerGame.ViewModel
             
             if(generator != null)
             {
-                engine.GeneratorManager.PurchaseGenerator(generator);
-                engine.RefreshGenerators();
+                engine.PurchaseGenerator(generator);
             }
         }
     }

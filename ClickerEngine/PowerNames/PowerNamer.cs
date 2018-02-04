@@ -29,6 +29,7 @@ namespace ClickerEngine.PowerNames
         {
             if (power < 3) return "";
             int i = (power / 3) - 1;
+            if (i > 9999) return "Infinity";
             return PowerNames[i];
         }
     }

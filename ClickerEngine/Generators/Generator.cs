@@ -12,20 +12,24 @@ namespace ClickerEngine.Generators
 {
     public class Generator : INotifyPropertyChanged
     {
-        private Value _vps;
-        private Value _vpc;
-
         private int _purchasedCount;
+        private int _availableAmount;
 
         public string Name { get; set; }
         public string Description { get; set; }
         public string Thumbnail { get; set; }
 
-        public int AvailableAmount { get; set; }
+        public int AvailableAmount
+        {
+            get { return _availableAmount; }
+            set { _availableAmount = value; OnPropertyChanged("AvailableAmount"); }
+        }
         public int PurchasedAmount {
             get{ return _purchasedCount; }
-            set { _purchasedCount = value; OnPropertyChanged("PurchasedAmount"); }
+            set { _purchasedCount = value; OnPropertyChanged("PurchasedAmount"); OnPropertyChanged("SumVps"); }
         }
+
+        public Value SumVps { get { return ValuePerSecond * new Value(PurchasedAmount); } }
 
         public Value Price { get; set; }
 
@@ -56,7 +60,7 @@ namespace ClickerEngine.Generators
 
         public void Update(Value currentValue)
         {
-
+            AvailableAmount = (currentValue / Price).IntValue;
         }
     }
 }

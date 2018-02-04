@@ -12,7 +12,7 @@ namespace ClickerEngine
 
         public Value(double gain, int power = 0)
         {
-            Gain = Math.Round(gain, Settings.FractionPrecision);
+            Gain = gain;
             Power = power;
 
             Normalize();
@@ -25,6 +25,28 @@ namespace ClickerEngine
 
             return new Value(gain, pow).Normalize();
         }
+
+        public static Value operator /(Value v1, Value v2)
+        {
+            var pow = v1.Power - v2.Power;
+            var gain = v1.Gain / v2.Gain;
+
+            return new Value(gain, pow).Normalize();
+        }
+
+        public int IntValue
+        {
+            get
+            {
+                if(Power < 6)
+                {
+                    return (int)(Gain * Math.Pow(10, Power));
+                }
+
+                throw new Exception("Calculating with too big numbers!!!");
+            }
+        }
+
 
         public static Value operator +(Value v1, Value v2)
         {
@@ -40,18 +62,18 @@ namespace ClickerEngine
             }
             else if (v1.Power > (v2.Power + Settings.PowerDifferenceCeiling))
             {
-                return v1.Normalize();
+                return v1;
             }
             else if (v2.Power > (v1.Power + Settings.PowerDifferenceCeiling))
             {
-                return v2.Normalize();
+                return v2;
             }
             else
             {
                 if (v1.Power > v2.Power)
                 {
                     var pow = v1.Power - v2.Power;
-                    var gain = v1.Gain + v2.Gain / Math.Pow(10,pow);
+                    var gain = v1.Gain + v2.Gain / Math.Pow(10, pow);
 
                     return new Value(gain, v1.Power).Normalize();
                 }
@@ -75,17 +97,36 @@ namespace ClickerEngine
                 return this;
             }
 
+            var offset = Power % 3;
+            if (offset != 0)
+            {
+                Power += (3 - offset);
+                Gain = Gain / Math.Pow(10, (3 - offset));
+            }
+
+            // Gain cannot be larger than 1000 or lower than -1000
             while (Gain <= -1000 || Gain >= 1000)
             {
                 Gain = Gain / 1000;
                 Power += 3;
             }
 
-            while(Gain < 1 && Gain > -1)
+            /*
+            while (((Gain > 1 && Gain < 100) || (Gain < -1 && Gain > -100)) && Power > 0)
             {
-                Gain = Gain * 10;
-                Power--;
+                Gain = Gain / 10;
+                Power++;
             }
+            */
+
+            // Gain cannot be lower than 1 and greater than -1
+            while (Gain < 1 && Gain > -1)
+            {
+                Gain = Gain * 1000;
+                Power-=3;
+            }
+
+            Gain = Math.Round(Gain, Settings.FractionPrecision);
 
             return this;
         }
@@ -142,7 +183,15 @@ namespace ClickerEngine
             }
             else
             {
-                return $"{Gain} {PowerNamer.GetName(Power)}";
+                var powerName = PowerNamer.GetName(Power);
+                if (string.IsNullOrEmpty(powerName))
+                {
+                    return $"{Gain}";
+                }
+                else
+                {
+                    return $"{Gain} {powerName}";
+                }
             }
         }
 

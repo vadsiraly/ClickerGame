@@ -23,17 +23,33 @@ namespace ClickerEngine
             LastExecution = DateTime.Now;
             ValuePerSecond = new Value(0, 0);
             BaseValuePerSecond = new Value(0, 0);
-            BaseValuePerClick = new Value(1, 0);
-            ValuePerClick = new Value(1, 0);
-            Timer = new Timer(Update, null, 0, 1000);
+            BaseValuePerClick = new Value(10, 0);
+            ValuePerClick = new Value(10, 0);
 
             _purchasedAdditiveBonuses = new List<Bonus>();
             _purchasedMultiplicativeBonuses = new List<Bonus>();
 
             _generatorManager = new GeneratorManager();
+
+            CurrentValueChanged += (s, e) =>
+            {
+                _generatorManager.Update(CurrentValue);
+            };
+
+            Timer = new Timer(Update, null, 0, 1000);
         }
 
         public Value CurrentValue { get { return _currentValue; } set { _currentValue = value; OnCurrentValueChanged(_currentValue); } }
+
+        public void PurchaseGenerator(Generator generator)
+        {
+            if((CurrentValue - generator.Price).Gain >= 0)
+            {
+                CurrentValue = (CurrentValue - generator.Price).Normalize();
+                GeneratorManager.PurchaseGenerator(generator);
+                RefreshGenerators();
+            }
+        }
 
         public IGeneratorManager GeneratorManager
         {
@@ -84,22 +100,24 @@ namespace ClickerEngine
             var VpsWithBonuses = new Value(gain, power).Normalize();
 
             CurrentValue += VpsWithBonuses;
+
+            _generatorManager.Update(CurrentValue);
         }
 
         public void Click()
         {
-            CurrentValue += ValuePerClick;
+            CurrentValue = (CurrentValue + ValuePerClick).Normalize();
         }
 
-        public void RefreshGenerators()
+        private void RefreshGenerators()
         {
             var sumVps = new Value(0);
             var sumVpc = new Value(0);
 
             foreach (var generator in GeneratorManager.PurchasedGenerators)
             {
-                sumVps += generator.ValuePerSecond;
-                sumVpc += generator.ValuePerClick;
+                sumVps += generator.ValuePerSecond * new Value(generator.PurchasedAmount);
+                sumVpc += generator.ValuePerClick * new Value(generator.PurchasedAmount);
             }
 
             ValuePerSecond = BaseValuePerSecond + sumVps;
