@@ -129,6 +129,11 @@ namespace ClickerEngine
             return null;
         }
 
+        public bool IsZero()
+        {
+            return Gain == 0;
+        }
+
         public override string ToString()
         {
             if (Settings.ScientificNotation)

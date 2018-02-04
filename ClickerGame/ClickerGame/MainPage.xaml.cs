@@ -13,6 +13,7 @@ namespace ClickerGame
     {
         private Engine engine;
         private MainPageViewModel _viewModel;
+        private DateTime lastEvent = DateTime.Now;
 
 		public MainPage(Engine engine)
 		{
@@ -37,9 +38,16 @@ namespace ClickerGame
             achievementsButton.GestureRecognizers.Add(achievementsClickRecognizer);
         }
 
-        private void ClickField_Clicked(object sender, EventArgs e)
+        private void ClickField_Clicked(object sender, MR.Gestures.TapEventArgs e)
         {
-            _viewModel.Click();
+            var fingerCount = e.NumberOfTouches;
+            var label = this.FindByName<Label>("ClickMeLabel");
+            label.Text = $"{fingerCount} finger tap";
+            
+            var adjustedClickCount = AdjustedSumValue(fingerCount) - AdjustedSumValue(fingerCount -1);
+
+            foreach (var i in Enumerable.Range(0, adjustedClickCount))
+                _viewModel.Click();
         }
 
         private void PurchaseButton_Clicked(object sender, EventArgs e)
@@ -54,6 +62,21 @@ namespace ClickerGame
         private async void GeneratorsButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new GeneratorsPage(engine));
+        }
+
+        private int AdjustedSumValue(int a)
+        {
+            return AdjustedSumValueIter(a, a-1);
+        }
+
+        private int AdjustedSumValueIter(int a, int i)
+        {
+            if (i <= 0)
+            {
+                return a;
+            }
+
+            return AdjustedSumValueIter(a + i, --i);
         }
     }
 }

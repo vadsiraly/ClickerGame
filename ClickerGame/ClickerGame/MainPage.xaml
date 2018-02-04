@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ClickerGame"
              x:Class="ClickerGame.MainPage"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
              NavigationPage.HasNavigationBar="false">
 
     <StackLayout>
@@ -26,12 +27,9 @@
             <Button x:Name="PurchaseButton" Text="Buy" Clicked="PurchaseButton_Clicked"></Button>
         </StackLayout>
 
-        <StackLayout x:Name="ClickField" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-            <Label Text="Click me!" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"></Label>
-            <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer Tapped="ClickField_Clicked" NumberOfTapsRequired="1"/>
-            </StackLayout.GestureRecognizers>
-        </StackLayout>
+        <mr:StackLayout x:Name="ClickField" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Tapping="ClickField_Clicked">
+            <Label x:Name="ClickMeLabel" Text="Click me!" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"></Label>
+        </mr:StackLayout>
         
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="End">
             <Button Text="Prestige"></Button>

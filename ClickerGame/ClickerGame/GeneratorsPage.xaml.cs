@@ -1,4 +1,5 @@
 ﻿using ClickerEngine;
+using ClickerEngine.Generators;
 using ClickerGame.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,14 @@ using Xamarin.Forms.Xaml;
 
 namespace ClickerGame
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class GeneratorsPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class GeneratorsPage : ContentPage
+    {
         private GeneratorsPageViewModel _viewModel;
 
-		public GeneratorsPage (Engine engine)
-		{
-			InitializeComponent ();
+        public GeneratorsPage(Engine engine)
+        {
+            InitializeComponent();
             _viewModel = new GeneratorsPageViewModel(engine);
             BindingContext = _viewModel;
         }

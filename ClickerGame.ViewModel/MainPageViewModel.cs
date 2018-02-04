@@ -9,14 +9,12 @@ using System.Runtime.CompilerServices;
 
 namespace ClickerGame.ViewModel
 {
-    public class MainPageViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : BaseViewModel
     {
         private Engine engine;
         private Value currentValue;
 
         public List<Bonus> Bonuses { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public MainPageViewModel(Engine engine)
         {
@@ -54,11 +52,6 @@ namespace ClickerGame.ViewModel
         {
             get { return PowerNamer.GetName(currentValue.Power); }
             private set { }
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

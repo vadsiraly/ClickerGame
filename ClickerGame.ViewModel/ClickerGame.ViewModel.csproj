@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ClickerEngine\ClickerEngine.csproj" />
   </ItemGroup>
 

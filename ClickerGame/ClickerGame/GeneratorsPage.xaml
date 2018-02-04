@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClickerGame.GeneratorsPage"
+             x:Name="GeneratorsPage"
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
         <StackLayout>
@@ -23,14 +24,14 @@
                     <Switch x:Name="Switch_Max" HorizontalOptions="Center" Toggled="Scale_Toggled"></Switch>
                 </StackLayout>
             </StackLayout>
-            <ListView 
-                  ItemsSource="{Binding Generators}" CachingStrategy="RecycleElement" RowHeight="80">
+            <ListView x:Name="GeneratorsListView"
+                  ItemsSource="{Binding Generators}" CachingStrategy="RecycleElement" RowHeight="100">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ContentView>
                                 <StackLayout Orientation="Horizontal" Padding="5,2.5,0,2.5">
-                                    <Image Source="{Binding Thumbnail}" HeightRequest="75" WidthRequest="75" Aspect="AspectFit"/>
+                                    <Image Source="{Binding Thumbnail}" HeightRequest="95" WidthRequest="95" Aspect="AspectFit"/>
                                     <StackLayout Orientation="Vertical" 
                                            HorizontalOptions="FillAndExpand" Spacing="0">
                                         <Label Text="{Binding Name}" 
@@ -40,12 +41,22 @@
                                                FontSize="Micro"/>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Available:" 
-                                               FontSize="Medium" />
+                                               FontSize="Small" />
                                             <Label Text="{Binding AvailableAmount}" 
-                                               FontSize="Medium"/>
+                                               FontSize="Small"/>
+                                            <Label Text=" for " 
+                                               FontSize="Small" />
+                                            <Label Text="{Binding Price, StringFormat='{0}'}" 
+                                               FontSize="Small"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Purchased:" 
+                                               FontSize="Small" />
+                                            <Label Text="{Binding PurchasedAmount}" 
+                                               FontSize="Small"/>
                                         </StackLayout>
                                     </StackLayout>
-                                    <Button Text="Buy" HorizontalOptions="End" VerticalOptions="Center"></Button>
+                                    <Button Text="Buy" HorizontalOptions="End" VerticalOptions="Center" Command="{Binding Source={x:Reference GeneratorsPage}, Path=BindingContext.PurchaseGeneratorCommand}" CommandParameter="{Binding .}"></Button>
                                 </StackLayout>
                             </ContentView>
                         </ViewCell>
