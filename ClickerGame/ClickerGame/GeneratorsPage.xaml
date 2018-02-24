@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
              x:Class="ClickerGame.GeneratorsPage"
              x:Name="GeneratorsPage"
              NavigationPage.HasNavigationBar="false">
@@ -25,43 +26,56 @@
                 </StackLayout>
             </StackLayout>
             <ListView x:Name="GeneratorsListView"
-                  ItemsSource="{Binding Generators}" CachingStrategy="RecycleElement" RowHeight="100">
+                  ItemsSource="{Binding Generators}" CachingStrategy="RecycleElement" RowHeight="120" ItemSelected="DisableSelection">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <mr:ViewCell LongPressing="ShowInfoPopup" LongPressed="HideInfoPopup">
                             <ContentView>
-                                <StackLayout Orientation="Horizontal" Padding="5,2.5,0,2.5">
-                                    <Image Source="{Binding Thumbnail}" HeightRequest="95" WidthRequest="95" Aspect="AspectFit"/>
+                                <StackLayout Orientation="Vertical" Spacing="1">
+                                    <StackLayout Orientation="Horizontal" Padding="5,5,5,0">
+                                    <Image Source="icon_generators_placeholder.png" VerticalOptions="Start" HeightRequest="75" WidthRequest="75" Aspect="AspectFill"/>
                                     <StackLayout Orientation="Vertical" 
                                            HorizontalOptions="FillAndExpand" Spacing="0">
-                                        <Label Text="{Binding Name}" 
-                                               FontSize="Medium"
-                                               FontAttributes="Bold" />
-                                        <Label Text="{Binding Description}" 
-                                               FontSize="Micro"/>
-                                        <StackLayout Orientation="Horizontal">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding Name}" 
+                                                    FontSize="Medium"
+                                                    FontAttributes="Bold" />
+                                                <Image x:Name="GeneratorInfoImage" Source="icon_info.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand" HeightRequest="17" WidthRequest="17" Aspect="AspectFill"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
                                             <Label Text="Available:" 
                                                FontSize="Small" />
                                             <Label Text="{Binding AvailableAmount}" 
                                                FontSize="Small"/>
-                                            <Label Text=" for " 
-                                               FontSize="Small" />
-                                            <Label Text="{Binding Price, StringFormat='{0}'}" 
-                                               FontSize="Small"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="Purchased:" 
+                                                <Label Text="Revenue:" 
                                                FontSize="Small" />
-                                            <Label Text="{Binding PurchasedAmount}" 
-                                               FontSize="Small"/>
-                                            <Label Text="{Binding SumVps, StringFormat='({0})'}" 
+                                                <Label Text="{Binding SumVps, StringFormat='{0} /s'}" 
                                                FontSize="Small"/>
                                         </StackLayout>
                                     </StackLayout>
-                                    <Button Text="Buy" HorizontalOptions="End" VerticalOptions="Center" Command="{Binding Source={x:Reference GeneratorsPage}, Path=BindingContext.PurchaseGeneratorCommand}" CommandParameter="{Binding .}"></Button>
+                                        <StackLayout Orientation="Vertical">
+                                            <Button Text="Buy" HorizontalOptions="End" VerticalOptions="Center" Command="{Binding Source={x:Reference GeneratorsPage}, Path=BindingContext.PurchaseGeneratorCommand}" CommandParameter="{Binding .}"></Button>
+                                            <Label Text="{Binding Price}" 
+                                               FontSize="Small"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="Owned:" VerticalOptions="Start" Margin="5,0,0,0" FontAttributes="Italic"
+                                                   FontSize="Small"/>
+                                        <Label Text="{Binding PurchasedAmount}" VerticalOptions="Start" FontAttributes="Italic"
+                                                   FontSize="Small"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="Description:" VerticalOptions="End" Margin="5,0,0,0" FontAttributes="Bold"
+                                                   FontSize="Micro"/>
+                                        <Label Text="{Binding Description}" VerticalOptions="End" FontAttributes="Italic"
+                                                   FontSize="Micro"/>
+                                    </StackLayout>
                                 </StackLayout>
                             </ContentView>
-                        </ViewCell>
+                        </mr:ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

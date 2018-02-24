@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="MR.Gestures" Version="1.5.2" />
+    <PackageReference Include="MWX.XamForms.Popup" Version="1.0.0.312" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
   </ItemGroup>
 

@@ -10,3 +10,5 @@ ClickerGame.ViewModel/obj/
 ClickerGame.ViewModel/bin/
 ClickerEngine.Test/obj/
 ClickerEngine.Test/bin/
+ClickerGameNative/obj/
+ClickerGameNative/bin/
