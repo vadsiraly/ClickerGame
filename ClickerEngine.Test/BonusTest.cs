@@ -12,17 +12,17 @@ namespace ClickerEngine.Test
         {
             var engine = new Engine();
 
-            var oldVPS = engine.ValuePerSecond;
-            if (oldVPS == new Value(0, 0))
+            var oldVPT = engine.ValuePerTick;
+            if (oldVPT == new Value(0, 0))
             {
-                oldVPS = new Value(1, 0);
+                oldVPT = new Value(1, 0);
             }
 
             engine.PurchaseBonus(new Bonus("SomeBonus", 6, new Value(0, 0), BonusType.Additive));
 
-            var newVPS = engine.ValuePerSecond;
+            var newVPT = engine.ValuePerTick;
 
-            Assert.AreEqual(newVPS, new Value(oldVPS.Gain * 6, oldVPS.Power).Normalize());
+            Assert.AreEqual(newVPT, new Value(oldVPT.Gain * 6, oldVPT.Power).Normalize());
         }
     }
 }

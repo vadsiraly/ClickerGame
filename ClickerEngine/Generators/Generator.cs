@@ -29,11 +29,11 @@ namespace ClickerEngine.Generators
             set { _purchasedCount = value; OnPropertyChanged("PurchasedAmount"); OnPropertyChanged("SumVps"); }
         }
 
-        public Value SumVps { get { return ValuePerSecond * new Value(PurchasedAmount); } }
+        public Value SumVps { get { return ValuePerTick * new Value(PurchasedAmount); } }
 
         public Value Price { get; set; }
 
-        public Value ValuePerSecond { get; set; }
+        public Value ValuePerTick { get; set; }
         public Value ValuePerClick { get; set; }
         public List<Bonus> AvailableBonuses { get; set; }
 
@@ -47,7 +47,7 @@ namespace ClickerEngine.Generators
             AvailableAmount = 0;
             PurchasedAmount = 0;
 
-            ValuePerSecond = new Value(100);
+            ValuePerTick = new Value(100);
             ValuePerClick = new Value(2);
         }
 

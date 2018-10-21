@@ -17,12 +17,12 @@ namespace ClickerEngine
 
         public event EventHandler<Value> CurrentValueChanged;
 
-        public Engine()
+        public Engine(int tickInterval = 1000 /*one second*/)
         {
             _currentValue = new Value(0, 0);
             LastExecution = DateTime.Now;
-            ValuePerSecond = new Value(0, 0);
-            BaseValuePerSecond = new Value(0, 0);
+            ValuePerTick = new Value(0, 0);
+            BaseValuePerTick = new Value(0, 0);
             BaseValuePerClick = new Value(10, 0);
             ValuePerClick = new Value(10, 0);
 
@@ -36,7 +36,7 @@ namespace ClickerEngine
                 _generatorManager.Update(CurrentValue);
             };
 
-            Timer = new Timer(Update, null, 0, 1000);
+            Timer = new Timer(Update, null, 0, tickInterval);
         }
 
         public Value CurrentValue { get { return _currentValue; } set { _currentValue = value; OnCurrentValueChanged(_currentValue); } }
@@ -81,8 +81,8 @@ namespace ClickerEngine
             }
         }
 
-        public Value BaseValuePerSecond { get; private set; }
-        public Value ValuePerSecond { get; private set; }
+        public Value BaseValuePerTick { get; private set; }
+        public Value ValuePerTick { get; private set; }
         public Value BaseValuePerClick { get; private set; }
         public Value ValuePerClick { get; private set; }
 
@@ -94,8 +94,8 @@ namespace ClickerEngine
             var additiveBonusValues = (_purchasedAdditiveBonuses.Any() ? _purchasedAdditiveBonuses.Select(x => x.Value).Aggregate((cur, next) => cur + next) : 1);
             var multilpicativeBonusValues = (_purchasedMultiplicativeBonuses.Any() ? _purchasedMultiplicativeBonuses.Select(x => x.Value).Aggregate((cur, next) => cur * next) : 1);
 
-            var gain = ValuePerSecond.Gain * additiveBonusValues * multilpicativeBonusValues;
-            var power = ValuePerSecond.Power;
+            var gain = ValuePerTick.Gain * additiveBonusValues * multilpicativeBonusValues;
+            var power = ValuePerTick.Power;
 
             var VpsWithBonuses = new Value(gain, power).Normalize();
 
@@ -111,16 +111,16 @@ namespace ClickerEngine
 
         private void RefreshGenerators()
         {
-            var sumVps = new Value(0);
+            var sumVpt = new Value(0);
             var sumVpc = new Value(0);
 
             foreach (var generator in GeneratorManager.PurchasedGenerators)
             {
-                sumVps += generator.ValuePerSecond * new Value(generator.PurchasedAmount);
+                sumVpt += generator.ValuePerTick * new Value(generator.PurchasedAmount);
                 sumVpc += generator.ValuePerClick * new Value(generator.PurchasedAmount);
             }
 
-            ValuePerSecond = BaseValuePerSecond + sumVps;
+            ValuePerTick = BaseValuePerTick + sumVpt;
             ValuePerClick = BaseValuePerClick + sumVpc;
         }
 
@@ -128,9 +128,9 @@ namespace ClickerEngine
         {
             if ((CurrentValue - pickedBonus.Price).Gain >= 0)
             {
-                if (ValuePerSecond == new Value(0, 0))
+                if (ValuePerTick == new Value(0, 0))
                 {
-                    ValuePerSecond = new Value(1, 0);
+                    ValuePerTick = new Value(1, 0);
                 }
 
                 CurrentValue -= pickedBonus.Price;
