@@ -53,6 +53,9 @@ namespace ClickerGame.AndroidNative
 			// aapt resource value: 0x7f050007
 			public const int button3 = 2131034119;
 			
+			// aapt resource value: 0x7f050006
+			public const int drawable_view1 = 2131034118;
+			
 			// aapt resource value: 0x7f050000
 			public const int linearLayout1 = 2131034112;
 			
@@ -64,9 +67,6 @@ namespace ClickerGame.AndroidNative
 			
 			// aapt resource value: 0x7f050004
 			public const int textview2 = 2131034116;
-			
-			// aapt resource value: 0x7f050006
-			public const int view1 = 2131034118;
 			
 			static Id()
 			{
@@ -122,6 +122,21 @@ namespace ClickerGame.AndroidNative
 			}
 			
 			private Style()
+			{
+			}
+		}
+		
+		public partial class Styleable
+		{
+			
+			public static int[] DrawableView;
+			
+			static Styleable()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Styleable()
 			{
 			}
 		}
