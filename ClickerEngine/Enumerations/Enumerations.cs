@@ -9,4 +9,10 @@ namespace ClickerEngine.Enumerations
         Additive,
         Multiplicative
     }
+
+    public enum ValueFormat
+    {
+        Scientific,
+        Literal
+    }
 }

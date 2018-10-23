@@ -17,7 +17,7 @@ namespace ClickerEngine
 
         public event EventHandler<Value> CurrentValueChanged;
 
-        public Engine(int tickInterval = 1000 /*one second*/)
+        public Engine()
         {
             _currentValue = new Value(0, 0);
             LastExecution = DateTime.Now;
@@ -35,8 +35,6 @@ namespace ClickerEngine
             {
                 _generatorManager.Update(CurrentValue);
             };
-
-            Timer = new Timer(Update, null, 0, tickInterval);
         }
 
         public Value CurrentValue { get { return _currentValue; } set { _currentValue = value; OnCurrentValueChanged(_currentValue); } }
@@ -89,7 +87,7 @@ namespace ClickerEngine
         private DateTime LastExecution { get; set; }
         private Timer Timer { get; set; }
 
-        private void Update(object state)
+        public void Tick(object state)
         {
             var additiveBonusValues = (_purchasedAdditiveBonuses.Any() ? _purchasedAdditiveBonuses.Select(x => x.Value).Aggregate((cur, next) => cur + next) : 1);
             var multilpicativeBonusValues = (_purchasedMultiplicativeBonuses.Any() ? _purchasedMultiplicativeBonuses.Select(x => x.Value).Aggregate((cur, next) => cur * next) : 1);

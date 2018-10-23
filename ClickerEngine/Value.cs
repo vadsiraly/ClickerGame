@@ -1,4 +1,5 @@
-﻿using ClickerEngine.PowerNames;
+﻿using ClickerEngine.Enumerations;
+using ClickerEngine.PowerNames;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -192,6 +193,34 @@ namespace ClickerEngine
                 {
                     return $"{Gain} {powerName}";
                 }
+            }
+        }
+
+        public string ToString(ValueFormat format)
+        {
+            if (format == ValueFormat.Scientific)
+            {
+                if(Power >= 3)
+                    return $"{Gain}*10^{Power}";
+                else
+                    return $"{Gain}";
+            }
+            if (format == ValueFormat.Literal)
+            {
+                var powerName = PowerNamer.GetName(Power);
+                if (string.IsNullOrEmpty(powerName))
+                {
+                    return $"{Gain}";
+                }
+                else
+                {
+                    return $"{Gain} {powerName}";
+                }
+            }
+            else
+            {
+                //Impossible to reach, convert to switch ??
+                return "";
             }
         }
 
