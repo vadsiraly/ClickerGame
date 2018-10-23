@@ -9,13 +9,15 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading;
 using ClickerEngine.Enumerations;
+using ClickerGame.AndroidNative.Activities;
+using Android.Content;
 
 namespace ClickerGame.AndroidNative
 {
     [Activity(Label = "ClickerGame.AndroidNative", MainLauncher = true)]
     public class MainActivity : Activity
     {
-        private Engine _engine;
+        public static Engine _engine = new Engine();
         private bool _gestureLock = false;
         private bool _singlePointerEvent = true;
 
@@ -25,12 +27,20 @@ namespace ClickerGame.AndroidNative
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
-            _engine = new Engine();
             _engine.CurrentValueChanged += UpdateUI;
             Timer t = new Timer(_engine.Tick, null, 0, 1000);
 
             DrawableView view1 = FindViewById<DrawableView>(Resource.Id.drawable_view1);
             view1.Touch += View1_Touch;
+
+            Button generatorButton = FindViewById<Button>(Resource.Id.btn_generators);
+            generatorButton.Click += OpenGeneratorsActivity;
+        }
+
+        private void OpenGeneratorsActivity(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(GeneratorsActivity));
+            StartActivity(intent);
         }
 
         private void View1_Touch(object sender, View.TouchEventArgs e)

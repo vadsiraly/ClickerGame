@@ -18,7 +18,7 @@
         p1:id="@+id/linearLayout2"
         p1:layout_marginTop="0.0dp">
         <Button
-            p1:text="BTN1"
+            p1:text="OPT"
             p1:layout_width="75dp"
             p1:layout_height="75dp"
             p1:id="@+id/button1" />
@@ -47,7 +47,7 @@
                 p1:layout_weight="1" />
         </LinearLayout>
         <Button
-            p1:text="BTN2"
+            p1:text="ACH"
             p1:layout_width="75dp"
             p1:layout_height="75dp"
             p1:id="@+id/button2" />
@@ -67,22 +67,22 @@
         p1:id="@+id/linearLayout2"
         p1:layout_marginTop="0.0dp">
         <Button
-            p1:text="BTN1"
+            p1:text="GEN"
             p1:layout_width="fill_parent"
             p1:layout_height="80dp"
             p1:layout_weight="1"
-            p1:id="@+id/button1" />
+            p1:id="@+id/btn_generators" />
         <Button
-            p1:text="BTN2"
+            p1:text="NOP"
             p1:layout_width="fill_parent"
             p1:layout_height="80dp"
             p1:layout_weight="1"
-            p1:id="@+id/button2" />
+            p1:id="@+id/nop1" />
         <Button
-            p1:text="Button"
+            p1:text="NOP"
             p1:layout_width="fill_parent"
             p1:layout_height="80dp"
             p1:layout_weight="1"
-            p1:id="@+id/button3" />
+            p1:id="@+id/nop2" />
     </LinearLayout>
 </LinearLayout>
